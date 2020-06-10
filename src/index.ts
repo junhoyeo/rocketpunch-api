@@ -1,1 +1,1 @@
-console.log(true)
+import { default as RocketPunchAPIClient } from './RocketPunchAPIClient';

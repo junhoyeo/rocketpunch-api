@@ -16,7 +16,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "esnext",
+    "target": "es2016",
     "outDir": "lib"
   },
   "exclude": [

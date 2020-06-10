@@ -2,13 +2,13 @@
 
 [<img src="./docs/images/rocketpunch-logo.png" align="right" width="100">](https://www.rocketpunch.com/)
 
-> 🚀 Node.js를 위한 로켓펀치 API 클라이언트
+> 🚀 Node.js를 위한 **로켓펀치 API** 클라이언트
 
 [로켓펀치](https://www.rocketpunch.com/)는 스타트업 기업/채용 플랫폼으로 시작한 비즈니스 네트워킹 서비스로, 수많은 기업과 사람들의 프로필 그리고 채용 정보를 확인할 수 있습니다.
 
 이 모듈은 비공식 API 클라이언트로,<br />
-1️⃣ 기업과 개인이 프로젝트와 이력서 정보를 더 빠르게 업데이트하고,<br />
-2️⃣ 자신에게 필요한 채용 정보를 구하는 과정을 자동화할 수 있도록 제작되었습니다.
+1️⃣ 기업과 개인이 프로젝트와 이력서 정보를 더 빠르게 **업데이트**하고,<br />
+2️⃣ 자신에게 필요한 채용 정보를 구하는 과정을 **자동화**할 수 있도록 제작되었습니다.
 
 ## 📦 Installation
 
@@ -56,4 +56,43 @@ const rocketpunchAPI = new RocketPunchAPIClient({
   const members: ICompanyMember = await companyProfile.getMembers()
   console.log(members);
 })();
+```
+
+## 📖 API
+
+- 📃 명세
+- 🚧 구현 중
+- ✅ 구현 완료
+
+### ✅ getUser
+특정 `username`를 가진 사용자의 문서를 불러옵니다.
+
+```ts
+const userProfile = await rocketpunchAPI.getUser('@jyeo');
+```
+
+### 🚧 userProfile.getSummary
+해당 사용자의 **요약된 프로필 정보**를 반환하는 비동기 함수입니다.
+
+```ts
+await userProfile.getSummary();
+```
+
+```js
+{
+  avatar: 'https://image.rocketpunch.com/user/183977/183977_1591104071.jpeg?s=200x200&t=cover',
+  name: '여준호',
+  englishName: 'Junho Yeo',
+  socialInfo: { recommends: 6, friends: 116, residence: '송파구' },
+  webpage: 'https://trendy-resume.now.sh/',
+  socialLinks: [
+    { name: 'facebook', href: 'https://www.facebook.com/juno3704' },
+    {
+      name: 'instagram',
+      href: 'https://www.instagram.com/jyeo_official'
+    },
+    { name: 'github', href: 'https://github.com/junhoyeo' }
+  ],
+  connection: { following: 185, follower: 118 }
+}
 ```
