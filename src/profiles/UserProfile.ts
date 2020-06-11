@@ -26,12 +26,23 @@ interface IUserSummary {
   }
 }
 
+interface IUserEducation {
+  name: string;
+  href: string;
+  image: string;
+  major: string[];
+  date: string | null;
+  description: string;
+  projects: string[];
+}
+
 interface IUserProfileProps {
   username: string;
   document: CheerioStatic;
 }
 
-const fallbackUserAvatar = 'https://image.rocketpunch.com/images/user/user.png?s=200x200&t=cover';
+const fallbackUserAvatar = 'https://image.rocketpunch.com/images/user/user.png';
+const fallbackCompanyAvatar = 'https://static.rocketpunch.com/images/company/company.png';
 
 export default class UserProfile {
   username: string;
@@ -42,7 +53,7 @@ export default class UserProfile {
     this.document = document;
   }
 
-  getSummary = async (): Promise<IUserSummary> => {
+  getSummary = (): IUserSummary => {
     const username = this.username;
     const avatar = this.document('img.avatar')
       .attr('src')
@@ -160,5 +171,52 @@ export default class UserProfile {
         follower,
       }
     };
+  };
+
+  getEducation = (): IUserEducation[] => {
+    return this.document('div.education.items > div.item')
+      .toArray()
+      .map((educationItemReference) => {
+        const educationItemElement = this.document(educationItemReference);
+        const titleElement = educationItemElement
+          .find('div.school-name > a')
+          .first();
+        const image = educationItemElement
+          .find('img.image')
+          .first()
+          .attr('src')
+          ?.trim() || fallbackCompanyAvatar;
+        const major = educationItemElement
+          .find('div.major')
+          .first()
+          .text()
+          .trim()
+          .split(', ') || [];
+        const date = educationItemElement
+          .find('p.date')
+          .first()
+          .text()
+          .trim() || null;
+        const description = educationItemElement
+          .find('div.desc')
+          .first()
+          .text()
+          .trim() || '';
+        const projects = educationItemElement
+          .find('p.projects > a')
+          .toArray()
+          .map((projectLinkReference) =>
+            this.document(projectLinkReference).text()) || [];
+
+        return {
+          name: titleElement.text().trim(),
+          href: titleElement.attr('href')?.trim() || '',
+          image,
+          major,
+          date,
+          description,
+          projects,
+        }
+      });
   };
 }

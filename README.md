@@ -39,22 +39,22 @@ const rocketpunchAPI = new RocketPunchAPIClient({
   await rocketpunchAPI.login();
 
   // User profile API
-  const userProfile = await rocketpunchAPI.getUser('jyeo');
+  const userProfile = rocketpunchAPI.getUser('jyeo');
 
   // Receive summary about user profile
-  const summary: IUserSummary = await userProfile.getSummary();
+  const summary: IUserSummary = userProfile.getSummary();
   console.log(summary.job);
   // => 'Frontend Web Developer'
 
   // Receive a list of user projects
-  const projects: IRocketPunchProject[] = await userProfile.getProjects()
+  const projects: IRocketPunchProject[] = userProfile.getProjects();
   projects.forEach((project) => console.log(project));
 
   // Company profile API
-  const companyProfile = await rocketpunchAPI.getCompany('inu');
+  const companyProfile = rocketpunchAPI.getCompany('inu');
 
   // Receive brief profile information about company members
-  const members: ICompanyMember = await companyProfile.getMembers()
+  const members: ICompanyMember = companyProfile.getMembers();
   console.log(members);
 })();
 ```
@@ -73,10 +73,10 @@ const userProfile = await rocketpunchAPI.getUser('@jyeo');
 ```
 
 ### ✅ userProfile.getSummary
-해당 사용자의 **요약된 프로필 정보**를 반환하는 비동기 함수입니다.
+해당 사용자의 **요약된 프로필 정보**를 반환하는 함수입니다.
 
 ```ts
-await userProfile.getSummary();
+userProfile.getSummary();
 ```
 
 ```js
@@ -112,43 +112,56 @@ await userProfile.getSummary();
 ```
 
 ### 📃 userProfile.getCareer()
-해당 사용자의 **경력 정보**를 반환하는 비동기 함수입니다.
+해당 사용자의 **경력 정보**를 반환하는 함수입니다.
 
 ```ts
-await userProfile.getCareer();
+userProfile.getCareer();
 ```
 
-### 📃 userProfile.getEducation()
-해당 사용자의 **학력 정보**를 반환하는 비동기 함수입니다.
+### ✅ userProfile.getEducation()
+해당 사용자의 **학력 정보**를 반환하는 함수입니다.
 
 ```ts
-await userProfile.getEducation();
+userProfile.getEducation();
+```
+
+```js
+[
+  {
+    name: '한국디지털미디어고등학교',
+    href: '/tag/korea-digital-media-high-school-n8zzfw',
+    major: [ '전문(실업)' ],
+    date: '2019년 입학',
+    description: '18기 해킹방어과',
+    projects: [ '디미고인', '디미시간', 'CAKE' ]
+  }
+]
 ```
 
 ### 📃 userProfile.getProjects()
-해당 사용자가 **등록한 프로젝트 목록**을 반환하는 비동기 함수입니다.
+해당 사용자가 **등록한 프로젝트 목록**을 반환하는 함수입니다.
 
 ```ts
-await userProfile.getProjects();
+userProfile.getProjects();
 ```
 
 ### 📃 userProfile.getAwards()
-해당 사용자의 **수상 정보**를 반환하는 비동기 함수입니다.
+해당 사용자의 **수상 정보**를 반환하는 함수입니다.
 
 ```ts
-await userProfile.getAwards();
+userProfile.getAwards();
 ```
 
 ### 📃 userProfile.getPosts()
-해당 사용자가 **작성한 블로그 글 목록**을 반환하는 비동기 함수입니다.
+해당 사용자가 **작성한 블로그 글 목록**을 반환하는 함수입니다.
 
 ```ts
-await userProfile.getPosts();
+userProfile.getPosts();
 ```
 
 ### 📃 userProfile.getMedia()
-해당 사용자가 실린 **뉴스 및 미디어 정보**를 반환하는 비동기 함수입니다.
+해당 사용자가 실린 **뉴스 및 미디어 정보**를 반환하는 함수입니다.
 
 ```ts
-await userProfile.getMedia();
+userProfile.getMedia();
 ```
