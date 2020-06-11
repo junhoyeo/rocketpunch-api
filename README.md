@@ -43,7 +43,8 @@ const rocketpunchAPI = new RocketPunchAPIClient({
 
   // Receive summary about user profile
   const summary: IUserSummary = await userProfile.getSummary();
-  console.log(summary);
+  console.log(summary.job);
+  // => 'Frontend Web Developer'
 
   // Receive a list of user projects
   const projects: IRocketPunchProject[] = await userProfile.getProjects()
@@ -108,4 +109,46 @@ await userProfile.getSummary();
   ],
   connection: { following: 185, follower: 119 }
 }
+```
+
+### 📃 userProfile.getCareer()
+해당 사용자의 **경력 정보**를 반환하는 비동기 함수입니다.
+
+```ts
+await userProfile.getCareer();
+```
+
+### 📃 userProfile.getEducation()
+해당 사용자의 **학력 정보**를 반환하는 비동기 함수입니다.
+
+```ts
+await userProfile.getEducation();
+```
+
+### 📃 userProfile.getProjects()
+해당 사용자가 **등록한 프로젝트 목록**을 반환하는 비동기 함수입니다.
+
+```ts
+await userProfile.getProjects();
+```
+
+### 📃 userProfile.getAwards()
+해당 사용자의 **수상 정보**를 반환하는 비동기 함수입니다.
+
+```ts
+await userProfile.getAwards();
+```
+
+### 📃 userProfile.getPosts()
+해당 사용자가 **작성한 블로그 글 목록**을 반환하는 비동기 함수입니다.
+
+```ts
+await userProfile.getPosts();
+```
+
+### 📃 userProfile.getMedia()
+해당 사용자가 실린 **뉴스 및 미디어 정보**를 반환하는 비동기 함수입니다.
+
+```ts
+await userProfile.getMedia();
 ```
