@@ -71,7 +71,7 @@ const rocketpunchAPI = new RocketPunchAPIClient({
 const userProfile = await rocketpunchAPI.getUser('@jyeo');
 ```
 
-### 🚧 userProfile.getSummary
+### ✅ userProfile.getSummary
 해당 사용자의 **요약된 프로필 정보**를 반환하는 비동기 함수입니다.
 
 ```ts
@@ -83,6 +83,19 @@ await userProfile.getSummary();
   avatar: 'https://image.rocketpunch.com/user/183977/183977_1591104071.jpeg?s=200x200&t=cover',
   name: '여준호',
   englishName: 'Junho Yeo',
+  status: '프리랜서',
+  job: 'Frontend Web Developer',
+  role: [ '디자인', 'SW 개발', '기획/PM' ],
+  interests: [ 'JavaScript', 'Front-end', 'React' ],
+  overview: 'Frontend is INEVITABLE™: 불가능한 프론트엔드는 없다고 믿습니다...',
+  highlights: [
+    { name: 'EmoticBox', href: '/tag/emoticbox-tuif05' },
+    { name: '이누', href: '/tag/inu-vrcojq' },
+    {
+      name: '한국디지털미디어고등학교',
+      href: '/tag/korea-digital-media-high-school-n8zzfw'
+    }
+  ],
   socialInfo: { recommends: 6, friends: 116, residence: '송파구' },
   webpage: 'https://trendy-resume.now.sh/',
   socialLinks: [
@@ -93,6 +106,6 @@ await userProfile.getSummary();
     },
     { name: 'github', href: 'https://github.com/junhoyeo' }
   ],
-  connection: { following: 185, follower: 118 }
+  connection: { following: 185, follower: 119 }
 }
 ```

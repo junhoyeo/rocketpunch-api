@@ -1,4 +1,4 @@
-interface ISocialLink {
+interface ILink {
   name: string;
   href: string;
 }
@@ -7,13 +7,19 @@ interface IUserSummary {
   avatar: string;
   name: string;
   englishName: string;
+  status: string | null;
+  job: string | null;
+  role: string[];
+  interests: string[];
+  overview: string,
+  highlights: ILink[],
   socialInfo: {
     recommends: number;
     friends: number;
     residence: string;
   };
   webpage: string;
-  socialLinks: ISocialLink[];
+  socialLinks: ILink[];
   connection: {
     following: number;
     follower: number;
@@ -52,6 +58,46 @@ export default class UserProfile {
       const englishName = englishNameBeforeTrimmed.replace(/  +/g, ' ');
       return [koreanName, englishName];
     })(englishNameBeforeTrimmed);
+
+    const status = this.document('div.user-status div.title')
+      .text()
+      .trim() || null;
+    const job = this.document('div.user-job-title > span')
+      .text()
+      .replace(/&nbsp;/gi,'')
+      .trim() || null;
+    const role = this.document('div.user-role.description')
+      .text()
+      .trim()
+      .split(', ') || [];
+    const interests = (() => {
+      const TagBetweenToRemove = this.document('div#pro-of > span');
+      TagBetweenToRemove.remove();
+
+      return this.document('div#pro-of')
+        .text()
+        .trim()
+        .replace('분야의 ', '')
+        .replace('에 관심', '')
+        .split(', ') || [];
+    })();
+    const overview = this.document('div#people-overview > span')
+      .text()
+      .trim() || '';
+    const highlights = this.document('div#people-highlight')
+      .find('a')
+      .toArray()
+      .map((highlightReference) => {
+        const highlightElement = this.document(highlightReference);
+        return {
+          name: highlightElement
+            .text()
+            .trim() || '',
+          href: highlightElement
+            .attr('href')
+            ?.trim() || '',
+        };
+      });
 
     const parseSocialInfoByClassName = (className: string) =>
       this.document(`div#people-social-info a.${className}`)
@@ -96,6 +142,12 @@ export default class UserProfile {
       avatar,
       name,
       englishName,
+      status,
+      job,
+      role,
+      interests,
+      overview,
+      highlights,
       socialInfo: {
         recommends,
         friends,
