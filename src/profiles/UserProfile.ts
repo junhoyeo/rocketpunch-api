@@ -178,6 +178,14 @@ export default class UserProfile {
       .toArray()
       .map((educationItemReference) => {
         const educationItemElement = this.document(educationItemReference);
+
+        const parseTextBySelector = (selector: string) =>
+          educationItemElement
+            .find(selector)
+            .first()
+            .text()
+            .trim() || '';
+
         const titleElement = educationItemElement
           .find('div.school-name > a')
           .first();
@@ -186,22 +194,12 @@ export default class UserProfile {
           .first()
           .attr('src')
           ?.trim() || fallbackCompanyAvatar;
-        const major = educationItemElement
-          .find('div.major')
-          .first()
-          .text()
-          .trim()
+
+        const major = parseTextBySelector('div.major')
           .split(', ') || [];
-        const date = educationItemElement
-          .find('p.date')
-          .first()
-          .text()
-          .trim() || null;
-        const description = educationItemElement
-          .find('div.desc')
-          .first()
-          .text()
-          .trim() || '';
+        const date = parseTextBySelector('p.date') || null;
+        const description = parseTextBySelector('div.desc');
+
         const projects = educationItemElement
           .find('p.projects > a')
           .toArray()
@@ -218,5 +216,22 @@ export default class UserProfile {
           projects,
         }
       });
+  };
+
+  getProjects = () => {
+    return this.document('section#people-project > div.project.items > div.item')
+      .toArray()
+      .map((projectItemReference) => {
+        const projectItemElement = this.document(projectItemReference);
+
+        const parseTextBySelector = (selector: string) =>
+          projectItemElement.find(selector).text().trim() || '';
+
+        return {
+          title: parseTextBySelector('div.project-name > strong'),
+          desc: parseTextBySelector('div.desc'),
+          date: parseTextBySelector('p.date'),
+        }
+      })
   };
 }

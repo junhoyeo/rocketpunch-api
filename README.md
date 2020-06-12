@@ -138,11 +138,21 @@ userProfile.getEducation();
 ]
 ```
 
-### 📃 userProfile.getProjects()
+### 🚧 userProfile.getProjects()
 해당 사용자가 **등록한 프로젝트 목록**을 반환하는 함수입니다.
 
 ```ts
 userProfile.getProjects();
+```
+
+```js
+[
+  {
+    title: '당신의 모든 배송',
+    desc: '택배 몇 개를 시켰는데, 각자 따로 배송 조회를 하기에는 귀찮아서 진행하게 된 개인 프로젝트입니다...',
+    date: '2019년 11월 - 2019년 11월'
+  }
+]
 ```
 
 ### 📃 userProfile.getAwards()
